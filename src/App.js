@@ -91,10 +91,46 @@ class App extends Component {
 
   addToCart(entry) {
     var cart = this.state.cart;
+    for (var i = 0; i < cart.length; i++) {
+      var check = cart[i];
+      if (check.colorTag === entry.colorTag &&
+          check.size === entry.size &&
+          check.item.name === entry.item.name) {
+        cart[i].quantity += entry.quantity;
+        this.setState({
+          cart: cart,
+        })
+        return;
+      }
+    }
+
     cart.push(entry);
     this.setState({
-      cart: cart
+      cart: cart,
     });
+  }
+
+  deleteCartEntry(i) {
+    var cart = this.state.cart;
+    cart.splice(i, 1);
+    this.setState({
+      cart: cart,
+    })
+  }
+
+  changeCartQuantity(i, delta) {
+    var cart = this.state.cart;
+    if (delta < 0 && cart[i].quantity > 1){
+      cart[i].quantity += delta;
+      this.setState({
+        cart: cart,
+      });
+    } else if (delta > 0 && cart[i].quantity < 99) {
+      cart[i].quantity += delta;
+      this.setState({
+        cart: cart,
+      });
+    }
   }
 
   renderContent() {
@@ -109,10 +145,12 @@ class App extends Component {
       );
     } else if (this.state.page === "details") {
       return <Details item={this.state.currentProduct} 
-                      addToCart={this.addToCart.bind(this)}/>;
+                      addToCart={this.addToCart.bind(this)}/>
     } else {
       return (
-        <Cart cart={this.state.cart}/>
+        <Cart cart={this.state.cart}
+              deleteCartEntry={this.deleteCartEntry.bind(this)}
+              changeCartQuantity={this.changeCartQuantity.bind(this)}/>
         );
     }
   }

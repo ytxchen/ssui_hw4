@@ -4,10 +4,6 @@ import CartEntry from './CartEntry.js';
 
 class Cart extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   getSubtotal() {
     var subtotal = 0;
     for (var i = 0; i < this.props.cart.length; i++) {
@@ -17,13 +13,24 @@ class Cart extends Component {
     return subtotal;
   }
 
+  deleteCartEntry(i) {
+    this.props.deleteCartEntry(i);
+  }
+
+  changeCartQuantity(i, delta) {
+    this.props.changeCartQuantity(i, delta);
+  }
+
   renderCartEntries() {
     return (
       <div>
-      {this.props.cart.map(entry => {
+      {this.props.cart.map((entry, idx) => {
         return (
-          <CartEntry entry={entry} />
-          )
+          <CartEntry entry={entry} 
+                     index={idx}
+                     deleteCartEntry={this.deleteCartEntry.bind(this)}
+                     changeCartQuantity={this.changeCartQuantity.bind(this)}/>
+          );
       })}
       </div>
     )

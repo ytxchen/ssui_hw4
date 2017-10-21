@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import './css/styles.css';
-import dogHarness from './assets/dog_harness.jpg';
-import catHarness from './assets/cat_harness.jpg';
-import gpsCollar from './assets/gps_collar.jpg';
-import harnessAttachment from './assets/harness_attachment.jpg';
 
 class CartEntry extends Component {
 
-  constructor(props) {
-    super(props);
+  deleteCartEntry() {
+    this.props.deleteCartEntry(this.props.index);
+  }
+
+  decQuantity() {
+    this.props.changeCartQuantity(this.props.index, -1);
+  }
+
+  incQuantity() {
+    this.props.changeCartQuantity(this.props.index, 1);
   }
 
   render() {
@@ -25,13 +29,16 @@ class CartEntry extends Component {
               <div className="color_label">{this.props.entry.colroName}</div>
             </div>
 
-            <div className="cart_remove_button">Remove from Cart</div>
+            <div className="cart_remove_button"
+                 onClick={this.deleteCartEntry.bind(this)}>Remove from Cart</div>
           </div>
 
           <div className="cart_quantity_widget">
-            <div className="quantity_change_button quantity_button"> - </div>
+            <div className="quantity_change_button quantity_button"
+                 onClick={this.decQuantity.bind(this)}> - </div>
             <div className="quantity_number quantity_button">{this.props.entry.quantity}</div>
-            <div className="quantity_change_button quantity_button"> + </div>
+            <div className="quantity_change_button quantity_button"
+                 onClick={this.incQuantity.bind(this)}> + </div>
           </div>
 
           <div className="cart_entry_price">{"$" + this.props.entry.item.price + ".00"}</div>
