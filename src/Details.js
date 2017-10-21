@@ -34,6 +34,24 @@ class Details extends Component {
     }
   }
 
+  addToCart() {
+    var entry = {
+      size: this.state.size,
+      colorTag: this.state.color,
+      colorName: this.state.color,
+      quantity: this.state.quantity,
+      item: this.props.item,
+    }
+
+    if (entry.colorName === "night_moon"){
+      entry.colorName = "night moon";
+    } else if (entry.colorName === "fire_orange"){
+      entry.colorName = "fire orange";
+    }
+
+    this.props.addToCart(entry);
+  }
+
   render() {
     return (
       <div className="details">
@@ -42,7 +60,7 @@ class Details extends Component {
           <div className="product_details">
             <div className="details_header_row">
               <div className="big_header item_name">{this.props.item.name}</div>
-              <div className="details_price_tag"> $ 20.00 </div>
+              <div className="details_price_tag">{" $ " + this.props.item.price + ".00 "}</div>
             </div>
 
             <div className="details_description">
@@ -127,7 +145,8 @@ class Details extends Component {
               </div>
             </div>
 
-            <div className="add_to_cart_button">
+            <div className="add_to_cart_button"
+                 onClick={() => this.addToCart()}>
               Add to Cart
             </div>
           </div>

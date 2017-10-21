@@ -37,6 +37,7 @@ a
   width: 10%;
   text-align: center;
   user-select: none;
+  cursor: default;
 }
 
 .shop_button:hover
@@ -524,6 +525,7 @@ a
   cursor: default;
   margin-top: 40px;
   margin-bottom: 150px;
+  user-select: none;
 }
 
 .add_to_cart_button:hover
@@ -590,4 +592,6 @@ a
 .cart_count
 {
   margin-bottom: 2px;
+  cursor: default;
+  user-select: none;
 }

@@ -13,7 +13,7 @@ class ProductElem extends Component {
            onClick={this.showDetails.bind(this)}>
           <img className="product_image" src={this.props.item.img} alt={this.props.item.name}/>
           <div className="item_label">{this.props.item.name}</div>
-          <div className="item_price">$20.00</div>
+          <div className="item_price">{"$" + this.props.item.price + ".00"}</div>
         </a>
     );
   }

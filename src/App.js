@@ -18,6 +18,7 @@ class App extends Component {
       tag: "dog_harness",
       name: "Dog Harness",
       img: dogHarnessImg,
+      price: 20,
       desc: "Unlike most harnesses, it is completely adjustable and easy to manage. The Reflective element of design will keep your dog safe even during those early morning walks, or during darker evenings.",
     }
 
@@ -25,6 +26,7 @@ class App extends Component {
       tag: "cat_harness",
       name: "Cat Harness",
       img: catHarnessImg,
+      price: 15,
       desc: "The walking vests provide more "
             + "coverage and pressure distribution than leads, "
             + "and it can be a good choice for cats who pull a lot during "
@@ -36,6 +38,7 @@ class App extends Component {
       tag: "gps_collar",
       name: "GPS Collar",
       img: gpsCollarImg,
+      price: 40,
       desc: "Mini Waterproof Multi-functional GPS "
             + "pet tracker with powerful location monitoring and an extremely "
             + "high technical specifcation - follow the footprints of your "
@@ -46,6 +49,7 @@ class App extends Component {
       tag: "harness_attachment",
       name: "Harness Attachment",
       img: harnessAttachmentImg,
+      price: 20,
       desc: "Food and water storage attachment to "
             + "harness. Convenient way to carry small items while taking"
             + " our friends with paws out for a walk.",
@@ -56,6 +60,7 @@ class App extends Component {
     this.state = {
       page: "home",
       currentProduct: this.products[0],
+      cart: [],
     };
   }
 
@@ -78,25 +83,49 @@ class App extends Component {
     });
   }
 
+  gotoCart() {
+    this.setState({
+      page: "cart",
+    });
+  }
+
+  addToCart(entry) {
+    var cart = this.state.cart;
+    cart.push(entry);
+    this.setState({
+      cart: cart
+    });
+  }
+
   renderContent() {
     if (this.state.page === "home") {
-      return <Home gotoProducts={this.gotoProducts.bind(this)}/>;
+      return (
+        <Home gotoProducts={this.gotoProducts.bind(this)}/>
+      );
     } else if (this.state.page === "products") {
       return (
         <Products products={this.products} 
                   showDetails={this.showDetails.bind(this)}/>
       );
     } else if (this.state.page === "details") {
-      return <Details item={this.state.currentProduct} />;
+      return <Details item={this.state.currentProduct} 
+                      addToCart={this.addToCart.bind(this)}/>;
     } else {
-      return <Cart />;
+      return (
+        <Cart cart={this.state.cart}/>
+        );
     }
   }
 
   render() {
     return(
     <div className="App">
-      <NavBar goHome={this.goHome.bind(this)}/>
+      <NavBar goHome={this.goHome.bind(this)}
+              gotoProducts={this.gotoProducts.bind(this)}
+              page={this.state.page}
+              cart={this.state.cart}
+              gotoCart={this.gotoCart.bind(this)}
+      />
       {this.renderContent()}
     </div>
     );

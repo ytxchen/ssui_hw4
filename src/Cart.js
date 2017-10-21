@@ -8,6 +8,27 @@ class Cart extends Component {
     super(props);
   }
 
+  getSubtotal() {
+    var subtotal = 0;
+    for (var i = 0; i < this.props.cart.length; i++) {
+      var entry = this.props.cart[i];
+      subtotal += entry.item.price * entry.quantity;
+    }
+    return subtotal;
+  }
+
+  renderCartEntries() {
+    return (
+      <div>
+      {this.props.cart.map(entry => {
+        return (
+          <CartEntry entry={entry} />
+          )
+      })}
+      </div>
+    )
+  }
+
   render() {
     return (
       <div className="cart">
@@ -19,12 +40,12 @@ class Cart extends Component {
             <hr/>
           </div>
 
-          <CartEntry />
+          {this.renderCartEntries()}
 
           <div className="cart_footer">
             <div className="big_header cart_subtotal">
               <div className="cart_subtotal_label">Subtotal:</div>
-              <div className="cart_subtotal_value">$</div>
+              <div className="cart_subtotal_value">{" $ " + this.getSubtotal() + ".00 "}</div>
             </div>
             <div className="checkout_button">Checkout</div>
           </div>
