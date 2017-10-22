@@ -22,18 +22,24 @@ class Cart extends Component {
   }
 
   renderCartEntries() {
-    return (
-      <div>
-      {this.props.cart.map((entry, idx) => {
-        return (
-          <CartEntry entry={entry} 
-                     index={idx}
-                     deleteCartEntry={this.deleteCartEntry.bind(this)}
-                     changeCartQuantity={this.changeCartQuantity.bind(this)}/>
-          );
-      })}
-      </div>
-    )
+    if (this.props.cart.length > 0) {
+      return (
+        <div>
+        {this.props.cart.map((entry, idx) => {
+          return (
+            <CartEntry entry={entry} 
+                       index={idx}
+                       deleteCartEntry={this.deleteCartEntry.bind(this)}
+                       changeCartQuantity={this.changeCartQuantity.bind(this)}/>
+            );
+        })}
+        </div>
+      )
+    } else {
+      return (
+        <div className="big_header"> Your cart is empty <hr/></div>
+      )
+    }
   }
 
   render() {
@@ -41,7 +47,7 @@ class Cart extends Component {
       <div className="cart">
         <div className="contents">
           <div className="cart_header">
-            <div className="big_header cart_header_label">Shipping Cart</div>
+            <div className="big_header cart_header_label">Shopping Cart</div>
             <div className="cart_header_text cart_header_quantity_label">quantity:</div>
             <div className="cart_header_text cart_header_price_label">price:</div>
             <hr/>

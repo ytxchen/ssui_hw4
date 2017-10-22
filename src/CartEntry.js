@@ -19,7 +19,9 @@ class CartEntry extends Component {
     return (
       <div className="CartEntry">
         <div className="cart_entry">
-          <img className="cart_image" src={this.props.entry.item.img}/>
+          <img className="cart_image" 
+               src={this.props.entry.item.img} 
+               alt={this.props.entry.item.name}/>
           <div className="cart_entry_details">
             <div className="cart_entry_label">{this.props.entry.item.name}</div>
             <div className="cart_entry_size">Size: {this.props.entry.size}</div>

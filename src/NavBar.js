@@ -2,8 +2,18 @@ import React, { Component } from 'react';
 import './css/styles.css';
 import logo from './assets/logo.png';
 import CartIcon from './assets/cart_icon.png';
+import CartDrawer from './CartDrawer.js';
+
 
 class NavBar extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      cursorOnCart: false,
+      cursorInDrawer: false,
+    }
+  }
 
   goHome() {
     this.props.goHome();
@@ -14,13 +24,16 @@ class NavBar extends Component {
   }
 
   gotoCart() {
+    this.setState({
+      cursorOnCart: false,
+    })
     this.props.gotoCart();
   }
 
   getCartCount() {
     var count = 0;
     for (var i = 0; i<this.props.cart.length; i++) {
-      count += this.props.cart[i].quantity;
+      count += this.props.cart[i].quantity; 
     }
     return count;
   }
@@ -43,11 +56,47 @@ class NavBar extends Component {
     if (this.props.page === 'products' || this.props.page === 'details') {
       return (
         <a className="cart_button big_header"
-           onClick={this.gotoCart.bind(this)}>
+           onClick={this.gotoCart.bind(this)}
+           onMouseEnter={this.openCartDrawer.bind(this)}
+           onMouseLeave={this.closeCartDrawer.bind(this)}>
           <img className="cart_icon" src={CartIcon} alt="Cart:"/>
           <div className="big_header cart_count">{this.getCartCount()}</div>
         </a>
       );
+    }
+  }
+
+  openCartDrawer() {
+    this.setState({
+      cursorOnCart: true,
+    });
+  }
+
+  closeCartDrawer() {
+    this.setState({
+      cursorOnCart: false,
+    });
+  }
+
+  cursorEnterDrawer() {
+    this.setState({
+      cursorInDrawer: true,
+    });
+  }
+
+  cursorLeaveDrawer() {
+    this.setState({
+      cursorInDrawer: false,
+    })
+  }
+
+  renderCartDrawer() {
+    if (this.state.cursorOnCart ||this.state.cursorInDrawer) {
+      return (
+        <CartDrawer cursorEnterDrawer={this.cursorEnterDrawer.bind(this)}
+                    cursorLeaveDrawer={this.cursorLeaveDrawer.bind(this)}
+                    cart={this.props.cart}/>
+      )
     }
   }
 
@@ -61,6 +110,7 @@ class NavBar extends Component {
              <img src={logo} alt="logo"/>
         </div>
         {this.renderCartIcon()}
+        {this.renderCartDrawer()}
         {this.props.page==='home' ? null : <hr/>}
       </div>
     );
