@@ -14,49 +14,27 @@ import harnessAttachmentImg from './assets/harness_attachment.jpg';
 class App extends Component {
 
   constructor(props) {
-    var dogHarness = {
-      tag: "dog_harness",
-      name: "Dog Harness",
-      img: dogHarnessImg,
-      price: 20,
-      desc: "Unlike most harnesses, it is completely adjustable and easy to manage. The Reflective element of design will keep your dog safe even during those early morning walks, or during darker evenings.",
-    }
+    var products = require("./products.json");
 
-    var catHarness = {
-      tag: "cat_harness",
-      name: "Cat Harness",
-      img: catHarnessImg,
-      price: 15,
-      desc: "The walking vests provide more "
-            + "coverage and pressure distribution than leads, "
-            + "and it can be a good choice for cats who pull a lot during "
-            + "walks or for flexible felines who can wriggle out of a lead "
-            + "and scamper away.",
-    }
-
-    var gpsCollar = {
-      tag: "gps_collar",
-      name: "GPS Collar",
-      img: gpsCollarImg,
-      price: 40,
-      desc: "Mini Waterproof Multi-functional GPS "
-            + "pet tracker with powerful location monitoring and an extremely "
-            + "high technical specifcation - follow the footprints of your "
-            + "beloved kitten, puppy, or pony.",
-    }
-
-    var harnessAttachment = {
-      tag: "harness_attachment",
-      name: "Harness Attachment",
-      img: harnessAttachmentImg,
-      price: 20,
-      desc: "Food and water storage attachment to "
-            + "harness. Convenient way to carry small items while taking"
-            + " our friends with paws out for a walk.",
+    /*  Cannot dynamicly load image sources because of bug:
+     *  https://github.com/webpack/webpack/issues/2670
+     *
+     *  Temporarily hard-coded checks
+     */
+    for (var i = 0; i < products.length; i++) {
+      if (products[i].imgSrc === './assets/dog_harness.jpg') {
+        products[i].img = dogHarnessImg;
+      } else if (products[i].imgSrc === './assets/cat_harness.jpg') {
+        products[i].img = catHarnessImg;
+      } else if (products[i].imgSrc === './assets/gps_collar.jpg') {
+        products[i].img = gpsCollarImg;
+      } else if (products[i].imgSrc === './assets/harness_attachment.jpg') {
+        products[i].img = harnessAttachmentImg;
+      }
     }
 
     super(props);
-    this.products = [dogHarness, catHarness, gpsCollar, harnessAttachment];
+    this.products = products;
     this.state = {
       page: "home",
       currentProduct: this.products[0],

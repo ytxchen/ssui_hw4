@@ -1,0 +1,33 @@
+[
+    {
+      "tag": "dog_harness",
+      "name": "Dog Harness",
+      "imgSrc": "./assets/dog_harness.jpg",
+      "price": 20,
+      "desc": "Unlike most harnesses, it is completely adjustable and easy to manage. The Reflective element of design will keep your dog safe even during those early morning walks, or during darker evenings."
+    }, 
+
+    {
+      "tag": "cat_harness",
+      "name": "Cat Harness",
+      "imgSrc": "./assets/cat_harness.jpg",
+      "price": 15,
+      "desc": "The walking vests provide more coverage and pressure distribution than leads, and it can be a good choice for cats who pull a lot during walks or for flexible felines who can wriggle out of a lead and scamper away."    
+    },
+
+    {
+      "tag": "gps_collar",
+      "name": "gps_collar",
+      "imgSrc": "./assets/gps_collar.jpg",
+      "price": 40,
+      "desc": "Mini Waterproof Multi-functional GPS pet tracker with powerful location monitoring and an extremely high technical specifcation - follow the footprints of your beloved kitten, puppy, or pony."
+    }, 
+
+    {
+      "tag": "harness_attachment",
+      "name": "Harness Attachment",
+      "imgSrc": "./assets/harness_attachment.jpg",
+      "price": 20,
+      "desc": "Food and water storage attachment to harness. Convenient way to carry small items while taking our friends with paws out for a walk."
+    }
+]
